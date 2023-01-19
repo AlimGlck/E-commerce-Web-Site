@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style1.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header class="container flex">
+        <a href="/" class="handwriting">
+            HIRDAVATALIM.COM
+        </a>
+        
+        <% if(!userIN) { %>
+        <div class="flex" >
+            <a href="/register" style="margin-right:2px;  align-items: center; padding:0px 4px;"  class="flex" >
+                <i style="position:relative; top: 3px; color: black;" class="icon-noun-register-icon"></i>
+               
+                <h2 style=" color: black;">Kayıt Ol</h2>
+            </a>
+            <a href="/login"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                <i style="position:relative; top: 3px;  color: black;" class="icon-noun-sign-in-icon"></i>
+                <h2 style=" color: black;">Giriş Yap</h2>
+            </a>
+            
+        </div>
+        <% } %>
+        
+        <% if(userIN) { %>
+            <div class="flex" >
+             <% if(user.userRole === 'customer') { %>
+                
+                <a href="/userCart"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-cart-5382215"></i>
+                    <h2 style=" color: black;">Sepetim</h2>
+                </a>
+                <% } %>
+
+                <% if(user.userRole === 'admin') { %>
+                <a href="/addProduct"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-cart-5382215"></i>
+                    <h2 style=" color: black;">Ürün Ekle</h2>
+                </a>
+                <% } %>
+                <a href="/user/logout"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 0px;  color: rgb(0, 0, 0);" class="icon-logout"></i>
+                    <h2 style=" padding-left: 5px; color: black;">Çıkış Yap</h2>
+                </a>
+            </div>
+        <% } %>
+            
+        
+        
+    </header>
+
+        <div style="display: flex; justify-content: center; padding: 50px 0px;  background-color: black;">
+            <h1 style="color: aliceblue; font-size:60px;">Kayıt Sayfası</h1>
+        </div>
+
+        <div style="display:flex; height: 100%; justify-content: center; margin-top:100px;">
+            <form action="/user/signup" method="POST" style="display:flex; flex-direction:column;  justify-content: space-around; align-items: center; border: 4px solid purple; width:50%; height:60%; background-color: rgb(0, 0, 0);" novalidate>
+                <div>
+                    <% if (flashMessages) { %> 
+                        <% if (flashMessages.success) { %>
+                            <div style="font-size: 20px; background-color: rgb(50, 255, 47);">
+                                <%= flashMessages.success %>
+                            </div> 
+                        <% } else if (flashMessages.error) { %>
+                             <div style="font-size: 20px; background-color: rgb(237, 47, 0);">
+                                    <%= flashMessages.error %>
+                              </div> 
+                            <% } %>
+                     <% } %>
+                    </div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="userName" style="width:95%; height:100%;" placeholder=" Adınızı Giriniz..." type="text" required></div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="userSurname" style="width:95%; height:100%;" placeholder=" Soyadınızı Giriniz..." type="text" required></div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="userEmail" style="width:95%; height:100%;" placeholder=" Emailinizi Giriniz..." type="email" required></div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="userPassword" style="width:95%; height:100%;" placeholder=" Şifrenizi Giriniz..." type="password" required></div>
+                <div style="width: 70%; height:10%; border-radius:15px; overflow: hidden; border: 1px solid black;"><button type="submit" value="KAYIT OL" style="width:100%; height:100%;"><h1>KAYIT OL</h1></button></div>
+            </form>      
+        </div>
+        
+
+
+
+
+
+    
+    <!--FOOTER BÖLÜMÜ-->
+  <footer style="display:flex; position: relative; flex-direction: column; background-color:darkslategray;">
+    <div  style=" display: flex; flex-direction: column; align-items: center; height: 350px;" class="about">
+        <h1 style="color:rgb(0, 0, 0) ; margin-bottom: 30px; margin-top: 10px;">
+            <strong> HAKKIMIZDA </strong> 
+        </h1>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600; padding-bottom: 20px;">
+           <i>HırdavatAl.com</i>  2021 yılında Alim Gölcük tarafından, hırdavat ürünlerini online olarak pazarlayarak bireysel ve kurumsal müşteriler ile buluşturulmuş ve kurulmuştur. 
+        </p>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600; padding-bottom: 20px;">
+            Sitemiz 1 yıldır aktif olarak müşterilerimize online hizmet vermekte ve kısa zamanda teslim ettiği ürünler ile müşteriler tarafından yüksek bir güven ile kullanılmaya devam etmektedir.
+        </p>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600;">
+            Hehangi bir iletişim ve şikayet durumunda bize ulaşabilmeniz için aşağıdaki sosyal medya hesaplarımız ile iletişime geçebilir ve kesin geri dönüş ile bize gönül rahatlığıyla ulaşabilirsiniz. 
+        </p>
+    </div>
+    <div style="display:flex; justify-content: space-around; align-items: center; background-color: aliceblue;"  class="contact">
+       <div style="color:rgb(0, 0, 0); " class="copyright"> 
+         <h2> © 2022 HırdavatAl.com</h2>
+    </div> 
+        <div >
+            <i class="icon-noun-linkedin-icon"></i>
+            <i class="icon-noun-facebook-icon"></i>
+            <i class="icon-noun-twitter-icon"></i>
+            <i class="icon-noun-youtube-icon"></i>
+
+        </div>
+    </div>
+    
+  </footer>
+  <!--FOOTER BÖLÜMÜ-->
+</body>
+</html>

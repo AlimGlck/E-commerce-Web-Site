@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/style1.css">
+    <title>Document</title>
+</head>
+<body>
+
+  <header class="container flex">
+    <a href="/" class="handwriting">
+        HIRDAVATALIM.COM
+    </a>
+    
+    <% if(!userIN) { %>
+    <div class="flex" >
+        <a href="/register" style="margin-right:2px;  align-items: center; padding:0px 4px;"  class="flex" >
+            <i style="position:relative; top: 3px; color: black;" class="icon-noun-register-icon"></i>
+           
+            <h2 style=" color: black;">Kayıt Ol</h2>
+        </a>
+        <a href="/login"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+            <i style="position:relative; top: 3px;  color: black;" class="icon-noun-sign-in-icon"></i>
+            <h2 style=" color: black;">Giriş Yap</h2>
+        </a>
+        
+    </div>
+    <% } %>
+    
+    <% if(userIN) { %>
+      <div class="flex" >
+         <% if(user.userRole == 'customer') { %>
+            
+            <a href="/userCart"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                <i style="position:relative; top: 3px;  color: black;" class="icon-noun-cart-5382215"></i>
+                <h2 style=" color: black;">Sepetim</h2>
+            </a>
+
+            <a href="/userFavourite"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+              <i style="position:relative; top: 3px;  color: black;" class="icon-noun-favourite-2378113"></i>
+              <h2 style=" color: black;">Favorilerim</h2>
+          </a>
+            <% } %>
+
+            <% if(user.userRole == 'admin') { %>
+            <a href="/addProduct"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                <i style="position:relative; top: 3px;  color: black;" class="icon-noun-product-1247945"></i>
+                <h2 style=" color: black;">Ürün Ekle</h2>
+            </a>
+            <% } %>
+            <a href="/user/logout"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                <i style="position:relative; top: 0px;  color: rgb(0, 0, 0);" class="icon-logout"></i>
+                <h2 style=" padding-left: 5px; color: black;">Çıkış Yap</h2>
+            </a>
+        </div>
+    <% } %>
+        
+    
+    
+</header>
+
+        <div style="display: flex; justify-content: center; padding: 50px 0px;  background-color: black;">
+            <h1 style="color: aliceblue; font-size:60px;">Ürün Sayfası</h1>
+        </div>
+
+        <div style="display:flex; justify-content: center; margin: 100px 0px;">
+            <div style="border: 2px solid black;">
+                <img style="width: 465.16px;" src="<%= productCard.productPhoto %>">
+            </div>
+            <div  style="border: 2px solid black; display: flex; flex-direction: column;">
+                <div style="margin:30px; font-size: 30px; color: orange;">
+                    <%= productCard.productName %>
+                </div>
+                <div style="margin:30px; font-size: 30px; color: orange;">
+                  <%= productCard.productBrand %>
+                </div>
+
+                <ul  style="margin:30px; list-style-type: none; padding: 0px;">
+                    <li style="margin-bottom: 7px; font-size:22px;">Kategori: <%= productCard.category.categoryName %>  </li>
+                    <li style="margin-bottom: 7px; font-size:22px;">Marka: <%= productCard.productBrand %></li>
+                    <li style="margin-bottom: 7px; font-size:22px;">Stoktaki Ürün Sayısı: <%= productCard.productQuantity %></li>
+                    <li style="margin-bottom: 7px; font-size:22px;">Garanti Süresi: 24 Ay</li>
+                </ul>
+
+                <form method="POST" action="/product/<%= productCard._id %>?_method=PUT" style="display:flex; align-items: center;" novalidate>
+                    <div style="display: flex; border: 2px solid black; margin:30px; border-radius: 20px; overflow: hidden;">
+                       <a id="azalt" style="text-decoration: none; color: black; background-color: antiquewhite; padding: 0px 10px;" href="javascript:void(0)"><i class="icon-minus"></i></a>
+                        <input id="Quantity" style="text-align: center; width:100px;" type="text" value="1" name="quantity">
+                        <a id="arttır" style="text-decoration: none; color: black; background-color: antiquewhite; padding: 0px 10px;" href="javascript:void(0)"><i class="icon-plus"></i></a>
+                    </div>
+                
+                <button type="submit" style=" margin-right: 20px; width: 200px; height:50px; background-color: green; color: aliceblue; font-weight: 900;">
+                    SATIN AL
+                </button>
+              </form>
+              <form method="POST" action="/user/userCart" style="display:flex; align-items: center;" novalidate>
+                <div style="display: flex; border: 2px solid black; margin:30px; border-radius: 20px; overflow: hidden;">
+                   <a id="azaltx" style="text-decoration: none; color: black; background-color: antiquewhite; padding: 0px 10px;" href="javascript:void(0)"><i class="icon-minus"></i></a>
+                    <input id="Quantityx" style="text-align: center; width:100px;" type="text" value="1" name="quantity">
+                    <a id="arttırx" style="text-decoration: none; color: black; background-color: antiquewhite; padding: 0px 10px;" href="javascript:void(0)"><i class="icon-plus"></i></a>
+                    <input  type="hidden"  value="<%= productCard._id %>" name="productId">
+                    <input  type="hidden"  value="<%= productCard.productPrice %>" name="price">
+                    <input  type="hidden"  value="<%= productCard.productPhoto %>" name="photo">
+                    <input  type="hidden"  value="<%= productCard.productName %>" name="name">
+                    
+                    
+                </div>
+            
+            <button type="submit" style=" margin-right: 20px; width: 200px; height:50px; background-color: green; color: aliceblue; font-weight: 900;">
+                SEPETE EKLE
+            </button>
+          </form>
+
+            </div>
+            
+        </div>
+        
+
+
+
+
+
+    
+    <!--FOOTER BÖLÜMÜ-->
+  <footer style="display:flex; position: relative; flex-direction: column; background-color:darkslategray;">
+    <div  style=" display: flex; flex-direction: column; align-items: center; height: 350px;" class="about">
+        <h1 style="color:rgb(0, 0, 0) ; margin-bottom: 30px; margin-top: 10px;">
+            <strong> HAKKIMIZDA </strong> 
+        </h1>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600; padding-bottom: 20px;">
+           <i>HırdavatAl.com</i>  2021 yılında Alim Gölcük tarafından, hırdavat ürünlerini online olarak pazarlayarak bireysel ve kurumsal müşteriler ile buluşturulmuş ve kurulmuştur. 
+        </p>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600; padding-bottom: 20px;">
+            Sitemiz 1 yıldır aktif olarak müşterilerimize online hizmet vermekte ve kısa zamanda teslim ettiği ürünler ile müşteriler tarafından yüksek bir güven ile kullanılmaya devam etmektedir.
+        </p>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600;">
+            Hehangi bir iletişim ve şikayet durumunda bize ulaşabilmeniz için aşağıdaki sosyal medya hesaplarımız ile iletişime geçebilir ve kesin geri dönüş ile bize gönül rahatlığıyla ulaşabilirsiniz. 
+        </p>
+    </div>
+    <div style="display:flex; justify-content: space-around; align-items: center; background-color: aliceblue;"  class="contact">
+       <div style="color:rgb(0, 0, 0); " class="copyright"> 
+         <h2> © 2022 HırdavatAl.com</h2>
+    </div> 
+        <div >
+            <i class="icon-noun-linkedin-icon"></i>
+            <i class="icon-noun-facebook-icon"></i>
+            <i class="icon-noun-twitter-icon"></i>
+            <i class="icon-noun-youtube-icon"></i>
+
+        </div>
+    </div>
+    
+  </footer>
+  <!--FOOTER BÖLÜMÜ-->
+</body>
+<script>
+
+let inputDeger = document.getElementById("Quantity");
+
+let inputDegerx = document.getElementById("Quantityx");
+
+ let azalt = document.getElementById("azalt");
+ let azaltx = document.getElementById("azaltx")
+ let arttır = document.getElementById("arttır")
+ let arttırx = document.getElementById("arttırx")
+
+ azalt.addEventListener("click",function(){
+  if(inputDeger.value === ""){
+          inputDeger.value = 1 ;
+    }
+    if(inputDeger.value == 1){
+      inputDeger.value = 1;
+    }
+    else{
+      inputDeger.value--;
+    }
+    
+
+ })
+
+ azaltx.addEventListener("click",function(){
+  if(inputDegerx.value === ""){
+          inputDegerx.value = 1 ;
+    }
+    if(inputDegerx.value == 1){
+      inputDegerx.value = 1;
+    }
+    else{
+      inputDegerx.value--;
+    }
+    
+
+ })
+
+ arttır.addEventListener("click",function(){
+
+        if(inputDeger.value === ""){
+          inputDeger.value = 1 ;
+        }
+        else{
+          let deger = parseInt(inputDeger.value); 
+
+          inputDeger.value = deger+1;
+        }
+        
+    
+    
+
+ })
+
+ arttırx.addEventListener("click",function(){
+
+if(inputDegerx.value === ""){
+  inputDegerx.value = 1 ;
+}
+else{
+  let deger = parseInt(inputDegerx.value); 
+
+  inputDegerx.value = deger+1;
+}
+
+
+
+
+})
+
+ 
+function setInputFilter(textbox, inputFilter, errMsg) {
+    ["input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout"].forEach(function(event) {
+      textbox.addEventListener(event, function(e) {
+        if (inputFilter(this.value)) {
+          // Accepted value
+          if (["keydown","mousedown","focusout"].indexOf(e.type) >= 0){
+            this.classList.remove("input-error");
+            
+          }
+          this.oldValue = this.value;
+          this.oldSelectionStart = this.selectionStart;
+          this.oldSelectionEnd = this.selectionEnd;
+        } else if (this.hasOwnProperty("oldValue")) {
+          // Rejected value - restore the previous one
+          this.classList.add("input-error");
+          this.setCustomValidity(errMsg);
+          this.reportValidity();
+          this.value = this.oldValue;
+          this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+        } else {
+          // Rejected value - nothing to restore
+          this.value = "";
+        }
+      });
+    });
+  }
+
+  setInputFilter(document.getElementById("Quantity"), function(value) {
+  return /^\d*$/.test(value); }, "Lütfen Bir Tam Sayı Giriniz");
+
+  setInputFilter(document.getElementById("Quantityx"), function(value) {
+  return /^\d*$/.test(value); }, "Lütfen Bir Tam Sayı Giriniz");
+  
+  </script>
+</html>

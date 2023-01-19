@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style2.css">
+    <title>Document</title>
+</head>
+<body>
+
+<!--HEADER BÖLÜMÜ-->
+    <header class="container flex">
+        <a href="/" class="handwriting">
+            HIRDAVATALIM.COM
+        </a>
+        
+       
+        <% if(!userIN) { %>
+        <div class="flex" >
+            <a href="/register" style="margin-right:2px;  align-items: center; padding:0px 4px;"  class="flex" >
+                <i style="position:relative; top: 3px; color: black;" class="icon-noun-register-icon"></i>
+               
+                <h2 style=" color: black;">Kayıt Ol</h2>
+            </a>
+            <a href="/login"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                <i style="position:relative; top: 3px;  color: black;" class="icon-noun-sign-in-icon"></i>
+                <h2 style=" color: black;">Giriş Yap</h2>
+            </a>
+            
+        </div>
+        <% } %>
+        
+        <% if(userIN) { %>
+            <div class="flex" >
+             <% if(user.userRole ==='customer') { %>
+                
+                <a href="/userCart"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-cart-5382215"></i>
+                    <h2 style=" color: black;">Sepetim</h2>
+                </a>
+
+                <a href="/userFavourite"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-favourite-2378113"></i>
+                    <h2 style=" color: black;">Favorilerim</h2>
+                </a>
+                <% } %>
+
+                <% if(user.userRole === 'admin') { %>
+                <a href="/addProduct"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-product-1247945"></i>
+                    <h2 style=" color: black;">Ürün Ekle</h2>
+                </a>
+                <% } %>
+                
+                <a href="/user/logout"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 0px;  color: rgb(0, 0, 0);" class="icon-logout"></i>
+                    <h2 style=" padding-left: 5px; color: black;">Çıkış Yap</h2>
+                </a>
+
+            </div>
+        <% } %>
+    </header>
+<!--HEADER BÖLÜMÜ-->
+
+
+<div style="display: flex; justify-content: center; padding: 50px 0px;  background-color: black;">
+    <h1 style="color: aliceblue; font-size:60px;">Kullanıcı Favorileri </h1>
+</div>
+
+<div style="display: flex; justify-content: center; align-items: center; padding: 10px 0px; background-color:antiquewhite; margin-top: 10px;">
+    <form style="display: flex; justify-content: center; align-items: center;" method="POST" action="/user/declineFavourite?_method=PUT"   novalidate>
+        <button type="submit" style=" font-size:30px; border-radius: 50px; cursor: pointer; justify-content: center; align-items: center; padding: 0px; width: 600px; height:100px; background-color: rgb(203, 15, 15); color: aliceblue; font-weight: 900;" >
+            Favorileri Temizle
+        </button>
+    </form>
+
+</div>
+
+
+<div style="display:flex; flex-wrap:wrap; justify-content:center;  margin-top:100px;" class="products">
+    
+    <% for(let i =0; i< products.userFavourites.length; i++) { %>
+   
+        <div   style="margin:0px 25px 50px 25px; display:flex; flex-direction:column; border: 1px solid black; padding:25px 50px; border-radius:8px; " class="product">
+    <div style="display:flex; align-items:center; height:650.2px; padding:46px;" class="product-image">
+        <a href="/product/<%= products.userFavourites[i]._id %>">
+            <img style="width:227.2px;" src="<%= products.userFavourites[i].photo %>" alt="">
+        </a>
+    </div>
+    <div style=" padding:25px 46px 46px 46px; display:flex; flex-direction: column;" class="product-info">
+        <div style="color:orange; font-size:23px; font-weight: 600; margin-bottom:8px;" class=""><%= products.userFavourites[i].brand %></div>
+        <div style="margin-bottom:8px; display:-webkit-box; max-width:227.2px; -webkit-line-clamp:2; -webkit-box-orient: vertical; overflow: hidden; font-size: 18px; font-weight: 600;"  class=""><%= products.userFavourites[i].name %></div>
+        
+    </div>
+
+    
+    
+</div>
+
+    <% } %>
+</div>
+
+
+
+    
+
+<!--FOOTER BÖLÜMÜ-->
+  <footer style="display:flex; position: relative; top:100%; flex-direction: column; background-color:darkslategray;">
+    <div  style=" display: flex; flex-direction: column; align-items: center; height: 350px;" class="about">
+        <h1 style="color:rgb(0, 0, 0) ; margin-bottom: 30px; margin-top: 10px;">
+            <strong> HAKKIMIZDA </strong> 
+        </h1>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600; padding-bottom: 20px;">
+           <i>HırdavatAl.com</i>  2021 yılında Alim Gölcük tarafından, hırdavat ürünlerini online olarak pazarlayarak bireysel ve kurumsal müşteriler ile buluşturulmuş ve kurulmuştur. 
+        </p>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600; padding-bottom: 20px;">
+            Sitemiz 1 yıldır aktif olarak müşterilerimize online hizmet vermekte ve kısa zamanda teslim ettiği ürünler ile müşteriler tarafından yüksek bir güven ile kullanılmaya devam etmektedir.
+        </p>
+        <p style="color:rgb(0, 0, 0) ; font-size: large; font-weight: 600;">
+            Hehangi bir iletişim ve şikayet durumunda bize ulaşabilmeniz için aşağıdaki sosyal medya hesaplarımız ile iletişime geçebilir ve kesin geri dönüş ile bize gönül rahatlığıyla ulaşabilirsiniz. 
+        </p>
+    </div>
+    <div style="display:flex; justify-content: space-around; align-items: center; background-color: aliceblue;"  class="contact">
+       <div style="color:rgb(0, 0, 0); " class="copyright"> 
+         <h2> © 2022 HırdavatAl.com</h2>
+    </div> 
+        <div >
+            <i class="icon-noun-linkedin-icon"></i>
+            <i class="icon-noun-facebook-icon"></i>
+            <i class="icon-noun-twitter-icon"></i>
+            <i class="icon-noun-youtube-icon"></i>
+
+        </div>
+    </div>
+    
+  </footer>
+  <!--FOOTER BÖLÜMÜ-->
+    
+</body>
+
+
+</html>

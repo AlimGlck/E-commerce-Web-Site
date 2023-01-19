@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style2.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header class="container flex">
+        <a href="/" class="handwriting">
+            HIRDAVATALIM.COM
+        </a>
+        
+        <% if(!userIN) { %>
+        <div class="flex" >
+            <a href="/register" style="margin-right:2px;  align-items: center; padding:0px 4px;"  class="flex" >
+                <i style="position:relative; top: 3px; color: black;" class="icon-noun-register-icon"></i>
+               
+                <h2 style=" color: black;">Kayıt Ol</h2>
+            </a>
+            <a href="/login"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                <i style="position:relative; top: 3px;  color: black;" class="icon-noun-sign-in-icon"></i>
+                <h2 style=" color: black;">Giriş Yap</h2>
+            </a>
+            
+        </div>
+        <% } %>
+        
+        <% if(userIN) { %>
+            <div class="flex" >
+             <% if(user.userRole === 'customer') { %>
+                
+                <a href="/userCart"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-cart-5382215"></i>
+                    <h2 style=" color: black;">Sepetim</h2>
+                </a>
+
+                <a href="/userFavourite"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-favourite-2378113"></i>
+                    <h2 style=" color: black;">Favorilerim</h2>
+                </a>
+                <% } %>
+
+                <% if(user.userRole === 'admin') { %>
+                <a href="/addProduct"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-product-1247945"></i>
+                    <h2 style=" color: black;">Ürün Ekle</h2>
+                </a>
+                <% } %>
+                <a href="/user/logout"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 0px;  color: rgb(0, 0, 0);" class="icon-logout"></i>
+                    <h2 style=" padding-left: 5px; color: black;">Çıkış Yap</h2>
+                </a>
+            </div>
+        <% } %>
+            
+        
+        
+    </header>
+
+    <div style="display: flex; justify-content: center; padding: 50px 0px;  background-color: black;">
+        <h1 style="color: aliceblue; font-size:60px;">Kullanıcı Sepeti</h1>
+    </div>
+
+    <% if(!(user.userCart == "")) { %>
+
+<div style="display:flex; flex-wrap:wrap; justify-content:center;  margin-top:100px;" class="products">
+    <div style="display: flex; border: 5px solid forestgreen; flex-direction: column;">
+    <div style="display: flex;">
+    <div style="display:flex; flex-direction: column;" >
+        <div style="display: flex; justify-content: center; padding: 0px 20px; font-size: 20px; background-color:darkred; font-weight: 800; border: 1px solid black; padding: 20px;">
+            Ürün
+        </div>
+        <% for(let i=0; i< products.userCart.length; i++) { %>
+        <div style="border-bottom: 2px solid black; border-right: 2px solid black; font-size: 20px; font-weight: bolder; display: flex; justify-content: center;">
+            <img style="height:227.2px; display: flex; " src="<%= products.userCart[i].photo %>" alt="">
+        </div>
+        <% } %>
+    </div>
+    <div style="display:flex; flex-direction: column;">
+        <div style="display: flex; justify-content: center;  padding: 0px 20px; font-size: 20px; background-color:darkred; font-weight: 800; border: 1px solid black; padding: 20px;">
+            Ürün Adedi
+        </div>
+        <% for(let i=0; i< products.userCart.length; i++) { %>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; border-bottom: 2px solid black; border-right: 2px solid black; font-size: 20px; font-weight: bolder;">
+            <%= products.userCart[i].quantity %>
+        </div>
+        <% } %>
+    </div>
+    <div style="display:flex; flex-direction: column; ">
+        <div style="display: flex; justify-content: center;  padding: 0px 20px; font-size: 20px; background-color:darkred; font-weight: 800; border: 1px solid black; padding: 20px;">
+            Ürün Fiyat(TL)
+        </div>
+        <% for(let i=0; i< products.userCart.length; i++) { %>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; border-bottom: 2px solid black; border-right: 2px solid black; font-size: 20px; font-weight: bolder;">
+            <%= products.userCart[i].price %> TL
+        </div>
+        <% } %>
+    </div>
+    <div style="display:flex; flex-direction: column;">
+        <div style="display: flex; justify-content: center;  padding: 0px 20px; font-size: 20px; background-color:darkred; font-weight: 800; border: 1px solid black; padding: 20px;">
+            Fiyat Toplam
+        </div>
+        <% for(let i=0; i< products.userCart.length; i++) { %>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%; border-bottom: 2px solid black; border-right: 2px solid black; font-size: 20px; font-weight: bolder;">
+            <%= (products.userCart[i].quantity *  products.userCart[i].price) %> TL
+        </div>
+        <% } %>
+    </div>
+</div>
+<div style="display: flex; flex-direction: column; margin-top: 20px; margin-bottom: 20px;">
+   <div style="display: flex;">
+<div style="display: flex;  width: 100%; align-items: center; justify-content: center; padding-bottom: 10px; " >
+    <form style="display: flex;" method="POST" action="/user/buyCart?_method=PUT" novalidate>
+        <button type="submit" style=" padding: 0px; width: 200px; height:50px; background-color: green; color: aliceblue; font-weight: 900;" >
+            Satın Al
+        </button>
+    </form>
+</div>
+<div id="sum" style="display: flex; font-size: 20px; font-weight: bolder; align-items: center; width: 100%; justify-content: center; padding-bottom: 10px; " >
+    
+</div>
+</div> 
+
+<div style="display: flex; justify-content: center; align-items: center; border-top: 2px solid black; padding: 10px 0px;">
+    <form style="display: flex; justify-content: center; align-items: center;" method="POST" action="/user/declineCart?_method=PUT"   novalidate>
+        <button type="submit" style=" justify-content: center; align-items: center; padding: 0px; width: 200px; height:50px; background-color: rgb(203, 15, 15); color: aliceblue; font-weight: 900;" >
+            Sepeti İptal Et
+        </button>
+    </form>
+
+</div>
+
+
+</div>
+</div>
+</div>
+
+<% } %>
+
+</body>
+
+<script>
+    
+    const toplam = document.getElementById('sum');
+
+    let prices = []
+    let pricex;
+    let sum = 0;
+   " <% for (let i = 0; i < products.userCart.length; i++) { %>"
+
+            pricex = "<%= (products.userCart[i].quantity *  products.userCart[i].price) %>";
+
+            prices.push(pricex);
+        
+       " <%    } %>"
+
+        for (let i = 0; i < prices.length; i++) {
+                sum = sum + parseInt(prices[i]);
+            
+        }
+
+        toplam.innerHTML = "Ürünler Toplamı:"+sum +" TL";
+
+        
+    
+</script>
+</html>

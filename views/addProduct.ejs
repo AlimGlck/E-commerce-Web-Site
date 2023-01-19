@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style2.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header class="container flex">
+        <a href="/" class="handwriting">
+            HIRDAVATALIM.COM
+        </a>
+        
+        <% if(!userIN) { %>
+        <div class="flex" >
+            <a href="/register" style="margin-right:2px;  align-items: center; padding:0px 4px;"  class="flex" >
+                <i style="position:relative; top: 3px; color: black;" class="icon-noun-register-icon"></i>
+               
+                <h2 style=" color: black;">Kayıt Ol</h2>
+            </a>
+            <a href="/login"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                <i style="position:relative; top: 3px;  color: black;" class="icon-noun-sign-in-icon"></i>
+                <h2 style=" color: black;">Giriş Yap</h2>
+            </a>
+            
+        </div>
+        <% } %>
+        
+        <% if(userIN) { %>
+            <div class="flex" >
+             <% if(user.userRole === 'customer') { %>
+                
+                <a href="/userCart"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-cart-5382215"></i>
+                    <h2 style=" color: black;">Sepetim</h2>
+                </a>
+                <% } %>
+
+                <% if(user.userRole === 'admin') { %>
+                <a href="/addProduct"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 3px;  color: black;" class="icon-noun-product-1247945"></i>
+                    <h2 style=" color: black;">Ürün Ekle</h2>
+                </a>
+                <% } %>
+                <a href="/user/logout"  style="margin-right:10px; align-items: center; padding:0px 4px;" class="flex">
+                    <i style="position:relative; top: 0px;  color: rgb(0, 0, 0);" class="icon-logout"></i>
+                    <h2 style=" padding-left: 5px; color: black;">Çıkış Yap</h2>
+                </a>
+            </div>
+        <% } %>
+            
+        
+        
+    </header>
+
+        <div style="display: flex; justify-content: center; padding: 50px 0px;  background-color: black;">
+            <h1 style="color: aliceblue; font-size:60px;">Ürün Ekleme Sayfası</h1>
+        </div>
+
+        <div style="display:flex; height: 100%; justify-content: center; margin-top:100px;">
+            <form action="/user/photo" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column;  justify-content: space-around; align-items: center; border: 4px solid purple; width:50%; height:60%; background-color: rgb(0, 0, 0);" novalidate>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="productName" style="width:95%; height:100%;" placeholder="Ürün Adı" type="text" required></div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="productBrand" style="width:95%; height:100%;" placeholder=" Ürün Markası" type="text" required></div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="productPrice" style="width:95%; height:100%;" placeholder=" Ürün Fiyatı" type="number" step="any" required></div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;"><input name="productQuantity" style="width:95%; height:100%;" placeholder=" Ürün Adedi" type="number" step="1" min="1" required></div>
+                <div style="width: 70%; height:10%; overflow: hidden; border: 1px solid black; background-color:white; border-radius: 15px; text-align: center;">
+                <select style="width:95%; height:100%; border:none; outline:none; padding:0px;" name="category" >
+                    <% for (let i=0; i< categories.length; i++) { %>
+                        <option value="<%= categories[i]._id %>"><%= categories[i].categoryName %></option>
+                        <% } %>	
+                </select>
+                
+                </div>
+                <div style="width: 70%;">
+                    <input style="width: 81px;" name="productPhoto" type="file" required>
+                </div>
+                
+                <div style="width: 70%; height:10%; border-radius:15px; overflow: hidden; border: 1px solid black;"><button type="submit" style="width:100%; height:100%;"><h1>ÜRÜN EKLE</h1></button></div>
+            </form>      
+        </div>
+        
+
+
+
+
+
+    
+    
+</body>
+</html>
