@@ -1,7 +1,5 @@
 # E-commerce-Web-Site
 
-This is my graduation thesis from the Software Engineering Department.
-
 An E-Commerce Web Site That Sells ironmongery products online.
 
 # Techs I used
